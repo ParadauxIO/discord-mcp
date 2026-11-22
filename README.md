@@ -1,3 +1,9 @@
+> **ParadauxIO fork.** Maintained so we control the runtime image: it builds on
+> `eclipse-temurin:17-jre-alpine` and publishes to
+> `harbor.paradaux.io/paradaux-public/discord-mcp` (see `.github/workflows/image.yaml`).
+> Upstream: [SaseQ/discord-mcp](https://github.com/SaseQ/discord-mcp) (MIT). Sync upstream
+> changes with `git fetch upstream && git merge upstream/main`.
+
 <div align="center">
   <img src="assets/img/Discord_MCP_full_logo.svg" width="60%" alt="DeepSeek-V3" />
 </div>

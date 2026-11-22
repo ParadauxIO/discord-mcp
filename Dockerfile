@@ -1,4 +1,4 @@
-FROM docker.io/library/maven:3.9.6-amazoncorretto-17 AS build
+FROM docker.io/library/maven:3-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
@@ -7,7 +7,9 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM docker.io/library/amazoncorretto:17-alpine
+# ParadauxIO fork: Temurin ships fixed JDKs promptly (17.0.21.1+ fixes Java4Shell,
+# CVE-2026-114938); amazoncorretto:17 had no fixed build when we forked.
+FROM docker.io/library/eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
