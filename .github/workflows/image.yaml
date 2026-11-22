@@ -1,0 +1,24 @@
+name: Tested image
+# ParadauxIO fork: build, test and publish to Harbor via the shared application-ci
+# workflow (upstream's Docker Hub publish workflow is removed). Pull requests
+# only build; pushes to main publish an immutable digest.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image:
+    uses: ParadauxIO/application-ci/.github/workflows/reusable-image.yaml@33f0dcb3f6f7a7eaad4671758f1af84e9614550d
+    with:
+      stack: java
+      version: '17'
+      # Upstream has no tests yet; packaging proves it compiles and assembles.
+      test-command: mvn -B -ntp package
+      image: harbor.paradaux.io/paradaux-public/discord-mcp
+      publish: ${{ github.event_name != 'pull_request' }}
+    secrets:
+      HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
+      HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
